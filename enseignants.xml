@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="enseignants.xsl"?>
+
+<!DOCTYPE université [
+    <!ELEMENT université (enseignant+)>
+    <!ELEMENT enseignant (nom, email, telephone, ville)>
+    <!ATTLIST enseignant grade CDATA #REQUIRED>
+    <!ELEMENT nom (#PCDATA)>
+    <!ATTLIST nom prénom CDATA #REQUIRED>
+    <!ELEMENT email (#PCDATA)>
+    <!ELEMENT telephone (fix, port)>
+    <!ELEMENT fix (#PCDATA)>
+    <!ELEMENT port (#PCDATA)>
+    <!ELEMENT ville (#PCDATA)>
+]>
+
+<université>
+    <enseignant grade="Professeur">
+        <nom prénom="Ahmed">BEN ALI</nom>
+        <email>ahmed.benali@universite.tn</email>
+        <telephone>
+            <fix>71 123 456</fix>
+            <port>20 123 456</port>
+        </telephone>
+        <ville>Tunis</ville>
+    </enseignant>
+    
+    <enseignant grade="Maître de Conférences">
+        <nom prénom="Marwa">SAIDI</nom>
+        <email>marwa.saidi@universite.tn</email>
+        <telephone>
+            <fix>71 234 567</fix>
+            <port>20 234 567</port>
+        </telephone>
+        <ville>Sfax</ville>
+    </enseignant>
+    
+    <enseignant grade="Assistant">
+        <nom prénom="Karim">CHAKROUN</nom>
+        <email>karim.chakroun@universite.tn</email>
+        <telephone>
+            <fix>71 345 678</fix>
+            <port>20 345 678</port>
+        </telephone>
+        <ville>Sousse</ville>
+    </enseignant>
+    
+    <enseignant grade="Professeur">
+        <nom prénom="Nour">GHARBI</nom>
+        <email>nour.gharbi@universite.tn</email>
+        <telephone>
+            <fix>71 456 789</fix>
+            <port>20 456 789</port>
+        </telephone>
+        <ville>Bizerte</ville>
+    </enseignant>
+</université>

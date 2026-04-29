@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Enseignants</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: url("gif.gif") no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1e8ee9;
+            size: bold;
+        }
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            size: bold;
+        }
+        table {
+            width: 85%;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+        }
+        th, td {
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* CONTAINER (FIXED) */
+        .form-container {
+            background-color: rgb(4, 15, 27);
+            width: 20%; 
+            margin: 20px auto;
+            display: flex;
+            gap: 8px; /* smaller gap */
+            align-items: center; 
+        }
+        
+        /* FORM */
+        .add-form {
+            flex: 1.3; /* less dominant */
+            padding: 20px;
+            background-color: rgb(4, 15, 27);
+            border-radius: 8px;
+        }
+        
+        /* GIF */
+        .gif-container {
+            flex: 1; 
+            padding: 10px; 
+            background-color: rgb(4, 15, 27);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .gif-container img {
+          background-color: rgb(4, 15, 27);
+            max-width: 80%; 
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        input, select {
+          border-radius: 10px;
+            padding: 8px;
+            margin: 5px;
+            width: 300px;
+        }
+        
+        button {
+            border-radius: 10px;
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        .edit-btn {
+            background-color: #f39c12;
+        }
+        .edit-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Gestion des Enseignants</h1>
+    
+    <div class="form-container">
+        <!-- FORM -->
+        <div class="add-form">
+            <h2>Ajouter / Modifier un Enseignant</h3>
+            <form name="addForm">
+                <input type="hidden" id="editIndex" value="-1">
+                <input type="text" name="nom" placeholder="Nom" required/><br>
+                <input type="text" name="prenom" placeholder="Prénom" required/><br>
+                <select name="grade">
+                    <option>Professeur</option>
+                    <option>Maître de Conférences</option>
+                    <option>Assistant</option>
+                </select><br>
+                <input type="email" name="email" placeholder="Email" required/><br>
+                <input type="text" name="fix" placeholder="Tél Fixe" required/><br>
+                <input type="text" name="port" placeholder="Tél Portable" required/><br>
+                <input type="text" name="ville" placeholder="Ville" required/><br>
+                <button type="button" onclick="ajouterOuModifier()">➕ Ajouter</button>
+                <button type="button" onclick="annulerModification()">❌ Annuler</button>
+            </form>
+        </div>
+        
+        <!-- GIF -->
+        
+    </div>
+    <table id="teacherTable">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Grade</th>
+                <th>Email</th>
+                <th>Tél Fixe</th>
+                <th>Tél Portable</th>
+                <th>Ville</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>BEN ALI</td>
+                <td>Ahmed</td>
+                <td>Professeur</td>
+                <td>ahmed.benali@universite.tn</td>
+                <td>71 123 456</td>
+                <td>20 123 456</td>
+                <td>Tunis</td>
+                <td>
+                    <button class="edit-btn" onclick="modifierEnseignant(this)">✏️ Modifier</button>
+                    <button class="delete-btn" onclick="supprimerEnseignant(this)">🗑️ Supprimer</button>
+                </td>
+            </tr>
+            <tr>
+                <td>SAIDI</td>
+                <td>Marwa</td>
+                <td>Maître de Conférences</td>
+                <td>marwa.saidi@universite.tn</td>
+                <td>71 234 567</td>
+                <td>20 234 567</td>
+                <td>Sfax</td>
+                <td>
+                    <button class="edit-btn" onclick="modifierEnseignant(this)">✏️ Modifier</button>
+                    <button class="delete-btn" onclick="supprimerEnseignant(this)">🗑️ Supprimer</button>
+                </td>
+            </tr>
+            <tr>
+                <td>CHAKROUN</td>
+                <td>Karim</td>
+                <td>Assistant</td>
+                <td>karim.chakroun@universite.tn</td>
+                <td>71 345 678</td>
+                <td>20 345 678</td>
+                <td>Sousse</td>
+                <td>
+                    <button class="edit-btn" onclick="modifierEnseignant(this)">✏️ Modifier</button>
+                    <button class="delete-btn" onclick="supprimerEnseignant(this)">🗑️ Supprimer</button>
+                </td>
+            </tr>
+            <tr>
+                <td>GHARBI</td>
+                <td>Nour</td>
+                <td>Professeur</td>
+                <td>nour.gharbi@universite.tn</td>
+                <td>71 456 789</td>
+                <td>20 456 789</td>
+                <td>Bizerte</td>
+                <td>
+                    <button class="edit-btn" onclick="modifierEnseignant(this)">✏️ Modifier</button>
+                    <button class="delete-btn" onclick="supprimerEnseignant(this)">🗑️ Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script>
+        let currentRow = null;
+        
+        function ajouterOuModifier() {
+            var form = document.forms.addForm;
+            var table = document.getElementById("teacherTable").getElementsByTagName("tbody")[0];
+            var editIndex = document.getElementById("editIndex").value;
+            
+            if (editIndex === "-1") {
+                var newRow = table.insertRow();
+                newRow.innerHTML = `
+                    <td>${form.nom.value}</td>
+                    <td>${form.prenom.value}</td>
+                    <td>${form.grade.value}</td>
+                    <td>${form.email.value}</td>
+                    <td>${form.fix.value}</td>
+                    <td>${form.port.value}</td>
+                    <td>${form.ville.value}</td>
+                    <td>
+                        <button class="edit-btn" onclick="modifierEnseignant(this)">✏️ Modifier</button>
+                        <button class="delete-btn" onclick="supprimerEnseignant(this)">🗑️ Supprimer</button>
+                    </td>
+                `;
+                alert("Enseignant ajouté!");
+            } else {
+                if (currentRow) {
+                    currentRow.cells[0].innerHTML = form.nom.value;
+                    currentRow.cells[1].innerHTML = form.prenom.value;
+                    currentRow.cells[2].innerHTML = form.grade.value;
+                    currentRow.cells[3].innerHTML = form.email.value;
+                    currentRow.cells[4].innerHTML = form.fix.value;
+                    currentRow.cells[5].innerHTML = form.port.value;
+                    currentRow.cells[6].innerHTML = form.ville.value;
+                    alert("Enseignant modifié!");
+                }
+                annulerModification();
+            }
+            form.reset();
+        }
+        
+        function modifierEnseignant(btn) {
+            currentRow = btn.parentNode.parentNode;
+            var form = document.forms.addForm;
+            
+            form.nom.value = currentRow.cells[0].innerHTML;
+            form.prenom.value = currentRow.cells[1].innerHTML;
+            form.grade.value = currentRow.cells[2].innerHTML;
+            form.email.value = currentRow.cells[3].innerHTML;
+            form.fix.value = currentRow.cells[4].innerHTML;
+            form.port.value = currentRow.cells[5].innerHTML;
+            form.ville.value = currentRow.cells[6].innerHTML;
+            
+            var btnAjouter = document.querySelector("button[onclick='ajouterOuModifier()']");
+            btnAjouter.innerHTML = "✏️ Modifier";
+            btnAjouter.style.backgroundColor = "#f39c12";
+            
+            document.getElementById("editIndex").value = "1";
+            document.querySelector(".add-form").scrollIntoView({behavior: "smooth"});
+        }
+        
+        function annulerModification() {
+            var form = document.forms.addForm;
+            form.reset();
+            document.getElementById("editIndex").value = "-1";
+            currentRow = null;
+            
+            var btnAjouter = document.querySelector("button[onclick='ajouterOuModifier()']");
+            btnAjouter.innerHTML = "➕ Ajouter";
+            btnAjouter.style.backgroundColor = "#3498db";
+        }
+        
+        function supprimerEnseignant(btn) {
+            if(confirm("Supprimer cet enseignant?")) {
+                var row = btn.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                alert("Enseignant supprimé!");
+            }
+        }
+    </script>
+</body>
+</html>
